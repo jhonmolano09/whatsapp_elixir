@@ -57,6 +57,7 @@ defmodule WhatsappElixir.MessageTest do
       assert message.location == nil
       assert message.interactive == nil
       assert message.data == text_message_data
+      assert message.timestamp == "1637236710"
     end
 
     test "creates a new message from image message data" do
@@ -120,6 +121,7 @@ defmodule WhatsappElixir.MessageTest do
       assert message.video == nil
       assert message.audio == nil
       assert message.document == nil
+      assert message.timestamp == "1637236710"
     end
 
     test "creates a new message from document message data" do
@@ -183,6 +185,7 @@ defmodule WhatsappElixir.MessageTest do
       assert message.image == nil
       assert message.video == nil
       assert message.audio == nil
+      assert message.timestamp == "1637236710"
     end
 
     test "creates a new message from interactive message data" do
@@ -247,6 +250,7 @@ defmodule WhatsappElixir.MessageTest do
 
       assert message.image == nil
       assert message.document == nil
+      assert message.timestamp == "1637236710"
     end
 
     test "creates a new message from location message data" do
@@ -309,6 +313,7 @@ defmodule WhatsappElixir.MessageTest do
 
       assert message.image == nil
       assert message.document == nil
+      assert message.timestamp == "1637236710"
     end
 
     test "handles audio message data" do
@@ -370,6 +375,7 @@ defmodule WhatsappElixir.MessageTest do
 
       assert message.image == nil
       assert message.document == nil
+      assert message.timestamp == "1637236710"
     end
 
     test "handles video message data" do
@@ -429,6 +435,7 @@ defmodule WhatsappElixir.MessageTest do
 
       assert message.image == nil
       assert message.document == nil
+      assert message.timestamp == "1637236710"
     end
   end
 end
