@@ -22,7 +22,7 @@ defmodule WhatsappElixir.Message do
     %WhatsappElixir.Message{
       id: Static.get_message_id(data),
       data: data,
-      content: Static.get_message(data) || "",
+      content: Static.get_content(data) || "",
       to: "",
       rec_type: "individual",
       type: Static.get_message_type(data) || "text",
