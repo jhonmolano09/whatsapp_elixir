@@ -324,12 +324,19 @@ defmodule WhatsappElixir.Static do
   def get_content(data) do
     type = get_message_type(data)
 
-    cond do
-      type == "text" -> get_message(data)
-      type == "image" -> get_image(data)["caption"]
-      type == "video" -> get_video(data)["caption"]
-      type == "document" -> get_document(data)["caption"]
-      true -> nil
+    message =
+      cond do
+        type == "text" -> get_message(data)
+        type == "image" -> get_image(data)
+        type == "video" -> get_video(data)
+        type == "document" -> get_document(data)
+        true -> nil
+      end
+
+    case message do
+      %{"caption" => caption} -> caption
+      text when is_binary(text) -> text
+      _ -> nil
     end
   end
 end
