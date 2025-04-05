@@ -16,7 +16,8 @@ defmodule WhatsappElixir.Message do
     :document,
     :location,
     :interactive,
-    :timestamp
+    :timestamp,
+    :metadata
   ]
 
   def new(data) do
@@ -35,7 +36,8 @@ defmodule WhatsappElixir.Message do
       document: Static.get_document(data),
       location: Static.get_location(data),
       interactive: Static.get_interactive_response(data),
-      timestamp: Static.get_message_timestamp(data)
+      timestamp: Static.get_message_timestamp(data),
+      metadata: Static.get_metadata(data)
     }
   end
 end
