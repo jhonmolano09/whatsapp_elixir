@@ -1084,4 +1084,164 @@ defmodule WhatsappElixir.StaticTest do
       assert Static.get_sender_wa_id(data) == nil
     end
   end
+
+  describe "get_contact_message/1" do
+    test "extracts contact information from message data" do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{
+                  "messages" => [
+                    %{
+                      "contacts" => [
+                        %{
+                          "addresses" => [
+                            %{
+                              "city" => "CONTACT_CITY",
+                              "country" => "CONTACT_COUNTRY",
+                              "country_code" => "CONTACT_COUNTRY_CODE",
+                              "state" => "CONTACT_STATE",
+                              "street" => "CONTACT_STREET",
+                              "type" => "HOME",
+                              "zip" => "CONTACT_ZIP"
+                            }
+                          ],
+                          "birthday" => "CONTACT_BIRTHDAY",
+                          "emails" => [
+                            %{
+                              "email" => "CONTACT_EMAIL",
+                              "type" => "WORK"
+                            }
+                          ],
+                          "name" => %{
+                            "formatted_name" => "CONTACT_FORMATTED_NAME",
+                            "first_name" => "CONTACT_FIRST_NAME",
+                            "last_name" => "CONTACT_LAST_NAME",
+                            "middle_name" => "CONTACT_MIDDLE_NAME",
+                            "suffix" => "CONTACT_SUFFIX",
+                            "prefix" => "CONTACT_PREFIX"
+                          },
+                          "org" => %{
+                            "company" => "CONTACT_ORG_COMPANY",
+                            "department" => "CONTACT_ORG_DEPARTMENT",
+                            "title" => "CONTACT_ORG_TITLE"
+                          },
+                          "phones" => [
+                            %{
+                              "phone" => "CONTACT_PHONE",
+                              "wa_id" => "CONTACT_WA_ID",
+                              "type" => "HOME"
+                            }
+                          ],
+                          "urls" => [
+                            %{
+                              "url" => "CONTACT_URL",
+                              "type" => "WORK"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      expected_contacts = [
+        %{
+          "addresses" => [
+            %{
+              "city" => "CONTACT_CITY",
+              "country" => "CONTACT_COUNTRY",
+              "country_code" => "CONTACT_COUNTRY_CODE",
+              "state" => "CONTACT_STATE",
+              "street" => "CONTACT_STREET",
+              "type" => "HOME",
+              "zip" => "CONTACT_ZIP"
+            }
+          ],
+          "birthday" => "CONTACT_BIRTHDAY",
+          "emails" => [
+            %{
+              "email" => "CONTACT_EMAIL",
+              "type" => "WORK"
+            }
+          ],
+          "name" => %{
+            "formatted_name" => "CONTACT_FORMATTED_NAME",
+            "first_name" => "CONTACT_FIRST_NAME",
+            "last_name" => "CONTACT_LAST_NAME",
+            "middle_name" => "CONTACT_MIDDLE_NAME",
+            "suffix" => "CONTACT_SUFFIX",
+            "prefix" => "CONTACT_PREFIX"
+          },
+          "org" => %{
+            "company" => "CONTACT_ORG_COMPANY",
+            "department" => "CONTACT_ORG_DEPARTMENT",
+            "title" => "CONTACT_ORG_TITLE"
+          },
+          "phones" => [
+            %{
+              "phone" => "CONTACT_PHONE",
+              "wa_id" => "CONTACT_WA_ID",
+              "type" => "HOME"
+            }
+          ],
+          "urls" => [
+            %{
+              "url" => "CONTACT_URL",
+              "type" => "WORK"
+            }
+          ]
+        }
+      ]
+
+      assert Static.get_contact_message(data) == expected_contacts
+    end
+
+    test "returns nil when no contact message present" do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{
+                  "messages" => [
+                    %{
+                      "text" => %{
+                        "body" => "Just text"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      assert Static.get_contact_message(data) == nil
+    end
+
+    test "returns nil when no messages present" do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{}
+              }
+            ]
+          }
+        ]
+      }
+
+      assert Static.get_contact_message(data) == nil
+    end
+  end
 end

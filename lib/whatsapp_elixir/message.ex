@@ -17,6 +17,7 @@ defmodule WhatsappElixir.Message do
     :document,
     :location,
     :interactive,
+    :contact,
     :timestamp,
     :metadata
   ]
@@ -38,6 +39,7 @@ defmodule WhatsappElixir.Message do
       document: Static.get_document(data),
       location: Static.get_location(data),
       interactive: Static.get_interactive_response(data),
+      contact: Static.get_contact_message(data),
       timestamp: Static.get_message_timestamp(data),
       metadata: Static.get_metadata(data)
     }

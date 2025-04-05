@@ -384,4 +384,31 @@ defmodule WhatsappElixir.Static do
       nil
     end
   end
+
+  @doc """
+  Extracts contact information from the data received from the webhook.
+
+  This function retrieves contact information (such as name, phone, email, etc.) shared
+  via WhatsApp contacts messages.
+
+  ## Examples
+      iex> get_contact_message(%{"entry" => [%{"changes" => [%{"value" => %{"messages" => [%{"contacts" => [%{"name" => %{"formatted_name" => "John Doe"}}]}]}}]}]})
+      [%{"name" => %{"formatted_name" => "John Doe"}}]
+  """
+  def get_contact_message(data) do
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
+
+    if Map.has_key?(data, "messages") do
+      data["messages"]
+      |> List.first()
+      |> Map.get("contacts")
+    else
+      nil
+    end
+  end
 end
