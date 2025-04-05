@@ -360,4 +360,28 @@ defmodule WhatsappElixir.Static do
       nil
     end
   end
+
+  @doc """
+  Extracts the sender's WhatsApp ID from the data received from the webhook.
+
+    ## Examples
+      iex> get_sender_wa_id(%{"entry" => [%{"changes" => [%{"value" => %{"contacts" => [%{"wa_id" => "123456789"}]}  }]}] })
+      "123456789"
+  """
+  def get_sender_wa_id(data) do
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
+
+    if Map.has_key?(data, "contacts") do
+      data["contacts"]
+      |> List.first()
+      |> Map.get("wa_id")
+    else
+      nil
+    end
+  end
 end

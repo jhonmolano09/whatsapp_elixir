@@ -1044,4 +1044,44 @@ defmodule WhatsappElixir.StaticTest do
     end
 
   end
+
+  describe "get_sender_wa_id/1" do
+    test "extracts sender WhatsApp ID" do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{
+                  "contacts" => [
+                    %{
+                      "wa_id" => "WHATSAPP_ID"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      assert Static.get_sender_wa_id(data) == "WHATSAPP_ID"
+    end
+
+    test "returns nil when no sender WhatsApp ID present" do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{}
+              }
+            ]
+          }
+        ]
+      }
+
+      assert Static.get_sender_wa_id(data) == nil
+    end
+  end
 end
