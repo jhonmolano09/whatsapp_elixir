@@ -997,4 +997,51 @@ defmodule WhatsappElixir.StaticTest do
       assert Static.get_content(data) == nil
     end
   end
+
+  describe "get_metadata/1" do
+    setup do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{
+                  "metadata" => %{
+                    "display_phone_number" => "PHONE_NUMBER",
+                    "phone_number_id" => "PHONE_NUMBER_ID"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      {:ok, data: data}
+    end
+    test "extracts metadata from data", %{data: data} do
+      expected_metadata = %{
+        "display_phone_number" => "PHONE_NUMBER",
+        "phone_number_id" => "PHONE_NUMBER_ID"
+      }
+
+      assert Static.get_metadata(data) == expected_metadata
+    end
+    test "returns nil when no metadata present" do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{}
+              }
+            ]
+          }
+        ]
+      }
+
+      assert Static.get_metadata(data) == nil
+    end
+
+  end
 end
