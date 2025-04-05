@@ -339,4 +339,25 @@ defmodule WhatsappElixir.Static do
       _ -> nil
     end
   end
+
+  @doc """
+  Extracts metadata from the data received from the webhook.
+  ## Examples
+      iex> get_metadata(%{... => %{"metadata" => %{"phone_number_id" => "waid.123456789", "display_phone_number" => "123456789"}}})
+      %{"phone_number_id" => "waid.123456789", "display_phone_number" => "123456789"}
+  """
+  def get_metadata(data) do
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
+
+    if Map.has_key?(data, "metadata") do
+      data["metadata"]
+    else
+      nil
+    end
+  end
 end
