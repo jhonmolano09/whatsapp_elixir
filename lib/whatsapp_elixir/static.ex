@@ -406,7 +406,12 @@ defmodule WhatsappElixir.Static do
     if Map.has_key?(data, "messages") do
       data["messages"]
       |> List.first()
-      |> Map.get("contacts")
+      |> Map.get("contacts", nil)
+      |> case do
+        contacts when is_list(contacts) -> contacts |> List.first()
+        nil -> nil
+        _ -> nil
+      end
     else
       nil
     end

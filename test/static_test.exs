@@ -1152,7 +1152,7 @@ defmodule WhatsappElixir.StaticTest do
         ]
       }
 
-      expected_contacts = [
+      expected_contact =
         %{
           "addresses" => [
             %{
@@ -1199,9 +1199,9 @@ defmodule WhatsappElixir.StaticTest do
             }
           ]
         }
-      ]
 
-      assert Static.get_contact_message(data) == expected_contacts
+
+      assert Static.get_contact_message(data) == expected_contact
     end
 
     test "returns nil when no contact message present" do
