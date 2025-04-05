@@ -29,7 +29,7 @@ defmodule WhatsappElixir.Message do
       content: Static.get_content(data) || "",
       to: "",
       rec_type: "individual",
-      type: Static.get_message_type(data) || "text",
+      type: Static.get_message_type(data),
       sender: Static.get_mobile(data),
       sender_wa_id: Static.get_sender_wa_id(data),
       name: Static.get_name(data),
