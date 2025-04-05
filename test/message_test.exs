@@ -58,6 +58,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.interactive == nil
       assert message.data == text_message_data
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
 
     test "creates a new message from image message data" do
@@ -122,6 +126,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.audio == nil
       assert message.document == nil
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
 
     test "creates a new message from document message data" do
@@ -186,6 +194,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.video == nil
       assert message.audio == nil
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
 
     test "creates a new message from interactive message data" do
@@ -251,6 +263,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.image == nil
       assert message.document == nil
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
 
     test "creates a new message from location message data" do
@@ -314,6 +330,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.image == nil
       assert message.document == nil
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
 
     test "handles audio message data" do
@@ -376,6 +396,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.image == nil
       assert message.document == nil
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
 
     test "handles video message data" do
@@ -436,6 +460,10 @@ defmodule WhatsappElixir.MessageTest do
       assert message.image == nil
       assert message.document == nil
       assert message.timestamp == "1637236710"
+      assert message.metadata == %{
+        "display_phone_number" => "1234567890",
+        "phone_number_id" => "phone_id_123"
+      }
     end
   end
 end
