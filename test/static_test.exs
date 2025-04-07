@@ -1244,4 +1244,34 @@ defmodule WhatsappElixir.StaticTest do
       assert Static.get_contact_message(data) == nil
     end
   end
+
+  describe "get_message_id_from_status/1" do
+
+    setup do
+      data = %{
+        "entry" => [
+          %{
+            "changes" => [
+              %{
+                "value" => %{
+                  "statuses" => [
+                    %{
+                      "id" => "wamid.1234567890"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      {:ok, data: data}
+    end
+    test "returns message id",%{data: data} do
+      result = Static.get_message_id_from_status(data)
+      assert result == "wamid.1234567890"
+    end
+
+  end
 end

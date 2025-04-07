@@ -99,6 +99,7 @@ defmodule WhatsappElixir.Static do
     end
   end
 
+
   @doc """
   Extracts the timestamp of the message from the data received from the webhook.
   """
@@ -412,6 +413,27 @@ defmodule WhatsappElixir.Static do
         nil -> nil
         _ -> nil
       end
+    else
+      nil
+    end
+  end
+
+
+  @doc """
+  Extracts message id from status payload received from the webhook.
+  """
+  def get_message_id_from_status(data) do
+    data =
+      data["entry"]
+      |> List.first()
+      |> Map.get("changes")
+      |> List.first()
+      |> Map.get("value")
+
+    if Map.has_key?(data, "statuses") do
+      data["statuses"]
+      |> List.first()
+      |> Map.get("id")
     else
       nil
     end
